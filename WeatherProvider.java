@@ -1,24 +1,57 @@
 import flyables.*;
+import tower.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Avaj_launcher 
+public class WeatherProvider 
 {  
     private List<String>    records;
     private int             nbWeatherTriggered;
     private List<Flyable>   flyables;
+    private WeatherProvider weatherProvider;
+    private String[]        weather = new String[4];
 
     public static   void    main(String[] args)
     {
-        Avaj_launcher avaj_launcher = new Avaj_launcher();
-        avaj_launcher.records = parseScenario(args[0]);
-        avaj_launcher.flyables = parseFlyables(avaj_launcher);
+        WeatherProvider weatherProvider = new WeatherProvider();
+        weatherProvider.records = parseScenario(args[0]);
+        weatherProvider.flyables = parseFlyables(weatherProvider);
+    }
+
+    WeatherProvider()
+    {
+        weather[0] = "SUN";
+        weather[1] = "FOG";
+        weather[2] = "RAIN";
+        weather[3] = "SNOW";
+    }
+
+    public  WeatherProvider  getProvider()
+    {
+        return  weatherProvider;
+    }
+    
+    public  String          getCurrentWeather(Coordinates coordinates)
+    {
+        int weather;
+
+        weather = (coordinates.getLongitude() + coordinates.getLatitude() + coordinates.getHeight()) % 4;
+        if (weather == 1)
+            return "SUN";
+        else if (weather == 2)
+            return "FOG";
+        else if (weather == 3)
+            return "RAIN";
+        else if (weather == 4)
+            return "SNOW";
+        return "";
     }
 
     private static  List<String> parseScenario(String scenario)
     {
         List<String> records = new ArrayList<String>();
+
         try
         {
             BufferedReader  reader = new BufferedReader(new FileReader(scenario));
@@ -35,11 +68,6 @@ public class Avaj_launcher
             e.printStackTrace();
         }
         return records;
-    }
-
-    private static  int         nbWeatherTriggered(String str)
-    {
-        return Integer.parseInt(str);
     }
 
     private static  Flyable     createNewAircraft(String[] arr)
@@ -67,20 +95,24 @@ public class Avaj_launcher
         return null;
     }
 
-    private static List<Flyable>     parseFlyables(Avaj_launcher avaj_launcher)
+    private static List<Flyable>     parseFlyables(WeatherProvider weatherProvider)
     {
         List<Flyable>   flyables = new ArrayList<Flyable>();
-        
-        for (int i = 0; i < avaj_launcher.records.size(); i++)
+        WeatherTower    weatherTower = new WeatherTower();
+
+        for (int i = 0; i < weatherProvider.records.size(); i++)
         {
-            String[] arr = avaj_launcher.records.get(i).split(" ");
+            String[] arr = weatherProvider.records.get(i).split(" ");
             if (i == 0)
-                avaj_launcher.nbWeatherTriggered = nbWeatherTriggered(arr[0]);
+                weatherProvider.nbWeatherTriggered = Integer.parseInt(arr[0]);
             else
             {
                 Flyable fly = createNewAircraft(arr);
                 if (fly != null)
+                {
                     flyables.add(fly);
+                    fly.registerTower(weatherTower);
+                }
             }
         }
         return flyables;

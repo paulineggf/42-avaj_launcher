@@ -30,4 +30,21 @@ public class   Coordinates
     {
         return _height;
     }
+
+    public void setLongitude(int nb)
+    {
+        _longitude += nb;
+    }
+
+    public void setLatitude(int nb)
+    {
+        _latitude += nb;
+    }
+
+    public void setHeight(int nb)
+    {
+        _height += nb;
+        if (_height > 100)
+            _height = 100;
+    }
 }

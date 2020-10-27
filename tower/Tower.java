@@ -11,7 +11,6 @@ public class   Tower
     // Methods
     public void    register(Flyable flyable)
     {
-        flyable.updateCondition();
         observers.add(flyable);
     }
 
