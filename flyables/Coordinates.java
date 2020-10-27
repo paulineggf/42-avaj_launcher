@@ -1,6 +1,6 @@
 package flyables;
 
-class   Coordinates
+public class   Coordinates
 {
     // Attributs
     private int _longitude;
