@@ -28,6 +28,7 @@ public class   Tower
 
     protected void  conditionsChanged()
     {
-        return ;
+        for (int i = 0; i < observers.size(); i++)
+            observers.get(i).updateCondition();
     }
 }

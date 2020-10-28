@@ -18,7 +18,7 @@ public class JetPlane extends Aircraft implements Flyable
         String weather;
 
         weather = weatherTower.getWeather(_coordinates);
-        System.out.println("JetPlane" + "#" + _name + "(" + _id + "): ");
+        System.out.print("JetPlane" + "#" + _name + "(" + _id + "): ");
         if (weather.equals("SUN") == true)
         {
             System.out.println("Let's enjoy the sunrise.");
@@ -38,7 +38,7 @@ public class JetPlane extends Aircraft implements Flyable
         else if (weather.equals("SNOW") == true)
         {
             System.out.println("OMG! Winter is coming!");
-            _coordinates.setHeight(7);
+            _coordinates.setHeight(-7);
         }
         if (_coordinates.getHeight() <= 0)
         {

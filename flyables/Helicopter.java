@@ -20,7 +20,7 @@ public class Helicopter extends Aircraft implements Flyable
         String weather;
 
         weather = weatherTower.getWeather(_coordinates);
-        System.out.println("Helicopter" + "#" + _name + "(" + _id + "): ");
+        System.out.print("Helicopter" + "#" + _name + "(" + _id + "): ");
         if (weather.equals("SUN") == true)
         {
             System.out.println("This is hot.");
@@ -40,7 +40,7 @@ public class Helicopter extends Aircraft implements Flyable
         else if (weather.equals("SNOW") == true)
         {
             System.out.println("My rotor is going to freeze!");
-            _coordinates.setHeight(12);
+            _coordinates.setHeight(-12);
         }
         if (_coordinates.getHeight() <= 0)
         {

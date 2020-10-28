@@ -18,7 +18,7 @@ public class Baloon extends Aircraft implements Flyable
         String weather;
 
         weather = weatherTower.getWeather(_coordinates);
-        System.out.println("Baloon" + "#" + _name + "(" + _id + "): ");
+        System.out.print("Baloon" + "#" + _name + "(" + _id + "): ");
         if (weather.equals("SUN") == true)
         {
             System.out.println("Let's enjoy the good weather and take some pics.");
@@ -27,18 +27,18 @@ public class Baloon extends Aircraft implements Flyable
         }
         else if (weather.equals("FOG") == true)
         {
-            System.out.println("I'm going to hit a tree.");
-            _coordinates.setHeight(3);
+            System.out.println("What this fog! I'm going to hit a tree.");
+            _coordinates.setHeight(-3);
         }
         else if (weather.equals("RAIN") == true)
         {
             System.out.println("Damn you rain! You messed up my baloon.");
-            _coordinates.setHeight(5);
+            _coordinates.setHeight(-5);
         }
         else if (weather.equals("SNOW") == true)
         {
             System.out.println("It's snowing. We're gonna crash.");
-            _coordinates.setHeight(15);
+            _coordinates.setHeight(-15);
         }
         if (_coordinates.getHeight() <= 0)
         {
