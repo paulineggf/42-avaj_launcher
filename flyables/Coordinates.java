@@ -16,32 +16,32 @@ public class   Coordinates
     }
     
     // Methods
-    public  int getLongitude()
+    public int  getLongitude()
     {
         return _longitude;
     }
 
-    public  int getLatitude()
+    public int  getLatitude()
     {
         return _latitude;
     }
 
-    public  int getHeight()
+    public int  getHeight()
     {
         return _height;
     }
 
-    public void setLongitude(int nb)
+    void        setLongitude(int nb)
     {
         _longitude += nb;
     }
 
-    public void setLatitude(int nb)
+    void        setLatitude(int nb)
     {
         _latitude += nb;
     }
 
-    public void setHeight(int nb)
+    void        setHeight(int nb)
     {
         _height += nb;
         if (_height > 100)

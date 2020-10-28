@@ -3,6 +3,6 @@ import  tower.*;
 
 public interface   Flyable
 {
-    void    updateCondition();
-    void    registerTower(WeatherTower weatherTower);
+    public void    updateCondition();
+    public void    registerTower(WeatherTower weatherTower);
 }

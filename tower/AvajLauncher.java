@@ -6,10 +6,10 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.io.File;  // Import the File class
-import java.io.IOException;  // Import the IOException class to handle errors
+import java.io.File;
+import java.io.IOException;
 
-public class                AvajLauncher //implements Runnable
+public class                AvajLauncher
 {  
     private List<String>    records;
     private List<Flyable>   flyables;
@@ -30,6 +30,7 @@ public class                AvajLauncher //implements Runnable
         {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            System.exit(-1);
         }
         try
         {
@@ -39,6 +40,7 @@ public class                AvajLauncher //implements Runnable
         catch (FileNotFoundException e)
         {
             e.printStackTrace();
+            System.exit(-1);
         }
         avajLauncher.records = parseScenario(args[0]);
         avajLauncher.flyables = parseFlyables(avajLauncher, weatherTower);
@@ -58,12 +60,12 @@ public class                AvajLauncher //implements Runnable
             while ((line = reader.readLine()) != null)
                 records.add(line);
             reader.close();
-
         }
         catch (Exception e)
         {
             System.err.format("Exception occurred trying to read '%s'.", scenario);
             e.printStackTrace();
+            System.exit(-1);
         }
         return records;
     }
@@ -76,14 +78,27 @@ public class                AvajLauncher //implements Runnable
         {
             String[] arr = avajLauncher.records.get(i).split(" ");
             if (i == 0)
+            {
                 avajLauncher.nbWeatherTriggered = Integer.parseInt(arr[0]);
+                if (avajLauncher.nbWeatherTriggered < 0)
+                {
+                    System.err.println("Error: data less than 0");
+                    System.exit(-1);
+                }
+            }
             else
             {
-                Flyable fly = createNewAircraft(arr);
-                if (fly != null)
+                try
                 {
+                    Flyable fly = createNewAircraft(arr);
                     flyables.add(fly);
                     fly.registerTower(weatherTower);
+                }
+                catch (Exception e)
+                {
+                    System.err.println("Flyable not known");
+                    e.printStackTrace();
+                    System.exit(-1);
                 }
             }
         }
@@ -106,11 +121,14 @@ public class                AvajLauncher //implements Runnable
             longitude = Integer.parseInt(arr[2]);
             latitude = Integer.parseInt(arr[3]);
             height = Integer.parseInt(arr[4]);
+            if (longitude < 0 || latitude < 0 || height < 0)
+                throw new Exception("Error: data less than 0");
             return aircraftFactory.newAircraft(type, name, longitude, latitude, height);
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            System.exit(-1);
         }
         return null;
     }

@@ -9,7 +9,7 @@ public class                WeatherProvider
     private static WeatherProvider  weatherProvider = new WeatherProvider();
     private String[]                weather = new String[4];
 
-    WeatherProvider()
+    private WeatherProvider()
     {
         weatherProvider = this;
         weather[0] = "SUN";

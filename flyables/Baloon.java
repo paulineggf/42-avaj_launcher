@@ -27,7 +27,7 @@ public class Baloon extends Aircraft implements Flyable
         }
         else if (weather.equals("FOG") == true)
         {
-            System.out.println("What this fog! I'm going to hit a tree.");
+            System.out.println("OMG so much fog!");
             _coordinates.setHeight(-3);
         }
         else if (weather.equals("RAIN") == true)
